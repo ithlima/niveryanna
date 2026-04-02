@@ -1,85 +1,180 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Uma surpresa de aniversário cheia de carinho, animações e mensagens especiais.">
   <title>Surpresa da Yanna</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="title">
-    <div class="txt1">Surpresa da Yana</div>
-    <div class="btn-start"><button onclick="comecar()" class="start">Clique aqui para começar</button></div>
-  </div>
+  <div class="background-overlay"></div>
+  <div class="floating-hearts" aria-hidden="true"></div>
+  <div class="sparkles" aria-hidden="true"></div>
 
-  <div class="container">
-    <div class="questao">
-      <p>Resolva essa questão para começar de verdade:</p>
-      <p>Quem é a BOCA DE SACOLA?</p>
-      <div class="escolhas">
-        <button class="btn-choose">Dumanga</button>
-        <button class="btn-choose">Sasá</button>
-        <button class="btn-choose">Loira</button>
-        <button class="btn-choose" onclick="certa()">Mariane</button>
-        <button class="btn-choose">Joaninha</button>
-        <button class="btn-choose">Gabys Melo</button>
-        <button class="btn-choose">Luizê</button>
-        <button class="btn-choose">Perninha</button>
-        <button class="btn-choose">Padero</button>
+  <main class="page-shell">
+    <section class="hero" id="hero">
+      <div class="badge">feito com muito carinho ✨</div>
+      <p class="eyebrow">Uma surpresa especial</p>
+      <h1>Yanna, hoje o dia inteiro é seu 💙</h1>
+      <p class="hero-text">
+        Preparamos um cantinho cheio de amor, brincadeira, lembranças boas e uma surpresa final.
+        Respira fundo, sorri e clica no botão abaixo.
+      </p>
+      <button class="primary-btn pulse" id="startBtn">Começar a surpresa</button>
+      <div class="scroll-hint">tem muita coisa linda te esperando ↓</div>
+    </section>
+
+    <section class="card quiz-section hidden" id="quizSection">
+      <div class="section-top">
+        <span class="section-tag">fase 1</span>
+        <h2>Antes de abrir o presente...</h2>
       </div>
-    </div>
-  </div>
-  <div class="container-2">
-    <p style="font-weight: 400; text-align: center;">Agora vamos para as mensagens dos seus filhinhos e filhinhas.</p>
-    <div class="frases">
-      <p>Parabeeeenns yanninha, chegou o seu dia de brilhar mais ainda. Que ele seja recheado de risadas, abraços, e
-        momentos memoráveis. Que a vida continue te surpreendendo om alegrias e que você siga sempre em frente com muito
-        ânimo e determinação. Que cada instante seja leve e alegre, assim como você. Feliz aniversário, muito sucesso
-        nesse novo ciclo💙🥳 <br> - Sasá</p>
-      <p>
-        Aniversário da marias!!
-        Que sua vida seja repleta de saúde e felicidades, e papai do céu te dê força pra lutar por todos os seus
-        objetivos!!
-        Obrigada por ser essa menina incrível.
-        Te amo Yanna ❤️ <br> - Lora
+      <p class="quiz-text">Resolva essa questão importantíssima para provar que merece seguir:</p>
+      <p class="question">Quem é o <strong>MAIS GAY</strong>?</p>
+
+      <div class="feedback" id="feedbackBox" aria-live="polite"></div>
+
+      <div class="choices">
+        <button class="choice-btn" data-correct="false">Dumanga</button>
+        <button class="choice-btn" data-correct="false">Sasá</button>
+        <button class="choice-btn" data-correct="false">Loira</button>
+        <button class="choice-btn correct-answer" data-correct="true">Antony</button>
+        <button class="choice-btn" data-correct="false">Gabys Melo</button>
+        <button class="choice-btn" data-correct="false">Luizê</button>
+        <button class="choice-btn" data-correct="false">Mariana</button>
+        <button class="choice-btn" data-correct="false">Padero</button>
+        <button class="choice-btn" data-correct="false">Lidembergueson</button>
+      </div>
+    </section>
+
+    <section class="card celebration hidden" id="celebrationSection">
+      <div class="section-top">
+        <span class="section-tag">fase 2</span>
+        <h2>Acertou! Agora sim começou de verdade 🎉</h2>
+      </div>
+      <p class="celebration-text">
+        Você desbloqueou a parte mais bonita: mensagens dos seus filhinhos e filhinhas,
+        uma surpresa final e um montão de carinho espalhado por esse site.
       </p>
+      <div class="mini-stats">
+        <div class="mini-box">
+          <strong>8</strong>
+          <span>mensagens cheias de amor</span>
+        </div>
+        <div class="mini-box">
+          <strong>100%</strong>
+          <span>carinho envolvido</span>
+        </div>
+        <div class="mini-box">
+          <strong>∞</strong>
+          <span>motivos pra sorrir</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="messages-section hidden" id="messagesSection">
+      <div class="section-heading">
+        <span class="section-tag">mensagens especiais</span>
+        <h2>Recadinhos de quem te ama</h2>
+        <p>Cada card aparece com calma, porque carinho bom merece entrada triunfal.</p>
+      </div>
+
+      <div class="messages-grid">
+        <article class="message-card reveal-card">
+          <div class="message-mark">💌</div>
+          <p>Parabeeeenns yanninha, chegou o seu dia de brilhar mais ainda. Que ele seja recheado de risadas, abraços, e momentos memoráveis. Que a vida continue te surpreendendo com alegrias e que você siga sempre em frente com muito ânimo e determinação. Que cada instante seja leve e alegre, assim como você. Feliz aniversário, muito sucesso nesse novo ciclo. 💙🥳</p>
+          <span>— Sasá</span>
+        </article>
+
+        <article class="message-card reveal-card">
+          <div class="message-mark">🎂</div>
+          <p>Aniversário da Marias!! Que sua vida seja repleta de saúde e felicidades, e papai do céu te dê força pra lutar por todos os seus objetivos!! Obrigada por ser essa menina incrível. Te amo, Yanna. ❤️</p>
+          <span>— Lora</span>
+        </article>
+
+        <article class="message-card reveal-card">
+          <div class="message-mark">✨</div>
+          <p>Desejo que cada momento seja preenchido com risos, amor e momentos inesquecíveis. Você é uma pessoa incrível e estamos felizes por te ter em nossas vidas. Feliz aniversário, Yanna.</p>
+          <span>— Lorão</span>
+        </article>
+
+        <article class="message-card reveal-card">
+          <div class="message-mark">💙</div>
+          <p>Feliz aniversário, Yanna! Que papai do céu cuide muito de você, que eu possa ter você pra sempre na minha vida, você sempre será a melhor companhia. Te amo muitão. 💙💙</p>
+          <span>— Antony</span>
+        </article>
+
+        <article class="message-card reveal-card featured">
+          <div class="message-mark">😌</div>
+          <p>Oi Yanna, feliz aniversário ❤️! Você merece todas as coisas boas. No momento tô sem dinheiro, então só vai tá tendo minha presença ilustre, mas não fique triste, depois piora. Você é uma pessoa muito especial e que a gente admira muito. Que papai do céu te abençoe e te dê paciência para não desistir de nós 😁. Em troca a gente aguenta tu rinchando e sendo besta. Em breve vamos fazer aquele bolinho de areia e recheio de pedra lá na Arena Fernanda, assim que tu pagar a hora que prometeu 😛. Seja feliz.</p>
+          <span>— Boca de Sacola</span>
+        </article>
+
+        <article class="message-card reveal-card">
+          <div class="message-mark">🌷</div>
+          <p>Yanna, eu te desejo tudo de melhor que existe no mundo. Todos os momentos que eu tenho ao seu lado são únicos. Todas as vezes que me viu chorar e fazer meu drama depois do racha, quando me viu rir que nem o Kurio e desde quando eu era só uma criança e nem sabia quem você era... te considero uma irmã, que me protege e me dá carinho sempre. Te amo muito!! 💗</p>
+          <span>— Gaby</span>
+        </article>
+
+        <article class="message-card reveal-card">
+          <div class="message-mark">🙏</div>
+          <p>Feliz aniversário, Yanna 🥳. Que Deus te abençoe muito hoje e sempre. Saiba que você participou dos melhores momentos da minha vida e que sou sempre leal a amizades como a sua. Que você comemore esta data por muitos e muitos anos ao lado de pessoas especiais. ❤️</p>
+          <span>— Luiz</span>
+        </article>
+
+        <article class="message-card reveal-card">
+          <div class="message-mark">💕</div>
+          <p>Parabeeeeeens minha gêmea de placenta diferente. Que você continue brilhando nessa sua vida. Desejo todas as coisas maravilhosas que existem nesse mundo; resumindo: você. Uma mulher maravilhosa. Eu amo-te. 💓💕</p>
+          <span>— Dumanga</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="card final-surprise hidden" id="finalSurprise">
+      <div class="section-top">
+        <span class="section-tag">fase 3</span>
+        <h2>Hora da surpresa final</h2>
+      </div>
       <p>
-        Desejo que cada momento seja preenchido com risos, amor e momentos inesquecíveis. Você é uma pessoa incrível e
-        estamos felizes por te ter em nossas vidas. Feliz aniversário! yana. <br> - Lorão
+        Tem um espacinho reservado aqui pra um vídeo de parabéns. Se você colocar um arquivo chamado
+        <strong>parabens.mp4</strong> na mesma pasta do projeto, ele aparece aqui automaticamente.
       </p>
-      <p>
-        feliz aniversário yanna🥳👏, que papai do céu cuide muito de você, que eu possa ter você pra sempre na minha
-        vida, vc sempre será a melhor companhia, te amo muitão💙💙
-        <br> - Antony
-      </p>
-      <p>
-        oi yana, feliz aniversário ❤️! vc merece todas as coisas boas, mas no momento tô sem dinheiro, ent só vai tá
-        tendo minha presença ilustre, mas não fique triste, dps piora, vc é uma pessoa muito especial e q a gente admira
-        muito, q papai do céu te abençoe e te dê paciência para não desistir de nós 😁, em troca a gente aguenta tu
-        rinchando e sendo besta, em breve vamos fazer aquele bolinho de areia e recheio de pedra lá na arena fernanda,
-        assim q vc pagar a hora q prometeu 😛, seja feliz <br> - Boca de Sacola
-      </p>
-      <p>Yanna eu te desejo tudo de melhor que existe no mundo, todos os momentos q eu tenho ao seu lado são únicos, todas as vezes q me viu chorar e fazer meu drama dps do racha, qnd me viu rir q nem o kurio e de qnd eu era só uma criança e nem sabia qm você era, te considero uma irmã, que me proteje e me dá carinho smp, te amo mt!! 💗 <br> - Gaby</p>
-      
-      <p>
-        Feliz aniversário yanna🥳
-        que Deus te abençoe muito hj e smp, saiba que vc participou dos melhores momentos da minha vida e que sou smp
-        leal a amizades como a sua, q vc comemore esta data anos e anos ao lado de pessoas especiais❤️ <br> - Luiz
-      </p>
-      <p>
-        Parabeeeeeens minha gêmea de placenta diferente, que você continue brilhando nessa sua vida, desejo todas as coisas maravilhosas que existem nesse mundo, resumindo (você) uma mulher maravilhosa ksakskak, eu amo-te.💓💕
-        <br> - Dumanga
-      </p>
-    </div>
-    <p style="font-weight: bold; text-align: center; font-size: 2rem;" class="ilu">TE AMAMOS</p>
-    <div class="heart">
-      <img src="heart1.gif" alt="" class="cora">
-    </div>
-  </div>
+
+      <div class="video-wrapper" id="videoWrapper">
+        <div class="video-placeholder" id="videoPlaceholder">
+          <div class="video-icon">▶</div>
+         
+        </div>
+        <video id="birthdayVideo" controls preload="metadata" playsinline>
+          <source src="v.mp4" type="video/mp4">
+          Seu navegador não suporta vídeo em HTML5.
+        </video>
+      </div>
+
+      <div class="actions-row">
+        <button class="primary-btn" id="revealVideoBtn">Revelar surpresa final</button>
+        <button class="ghost-btn" id="scrollLoveBtn">Ver mensagem final</button>
+      </div>
+    </section>
+
+    <section class="love-note hidden" id="loveNote">
+      <div class="love-box">
+        <img src="heart1.gif" alt="Coração animado" class="heart-gif">
+        <p class="script-text">Yanna, você é presente na vida de muita gente.</p>
+        <h2 id="typedMessage"></h2>
+        <p class="closing-text">
+          Que seu novo ciclo venha carregado de paz, riso, proteção, amizade sincera e muita coisa bonita.
+          Que nunca te faltem motivos pra sorrir e pessoas certas ao teu lado.
+        </p>
+        <div class="love-stamp">TE AMAMOS 💙</div>
+      </div>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
-
 </html>
