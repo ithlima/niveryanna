@@ -1,172 +1,155 @@
-const startBtn = document.getElementById('startBtn');
-const quizSection = document.getElementById('quizSection');
-const celebrationSection = document.getElementById('celebrationSection');
-const messagesSection = document.getElementById('messagesSection');
-const finalSurprise = document.getElementById('finalSurprise');
-const loveNote = document.getElementById('loveNote');
-const feedbackBox = document.getElementById('feedbackBox');
-const choiceButtons = document.querySelectorAll('.choice-btn');
-const revealVideoBtn = document.getElementById('revealVideoBtn');
-const scrollLoveBtn = document.getElementById('scrollLoveBtn');
-const birthdayVideo = document.getElementById('birthdayVideo');
-const videoPlaceholder = document.getElementById('videoPlaceholder');
-const typedMessage = document.getElementById('typedMessage');
-const messageCards = document.querySelectorAll('.reveal-card');
-const floatingHearts = document.querySelector('.floating-hearts');
-const sparkles = document.querySelector('.sparkles');
+const groupPhotos = [
+  "imgs/imggrupo1.jpeg",
+  "imgs/imggrupo2.jpeg",
+];
 
-let surpriseUnlocked = false;
-let typingStarted = false;
+const music = document.querySelector("#birthdayMusic");
+const musicButton = document.querySelector("#musicButton");
+const musicButtonText = document.querySelector(".music-button__text");
+const groupCarouselTrack = document.querySelector("#groupCarouselTrack");
+const lightbox = document.querySelector("#imageLightbox");
+const lightboxImage = document.querySelector("#lightboxImage");
+const lightboxClose = document.querySelector("#lightboxClose");
 
-startBtn.addEventListener('click', () => {
-  quizSection.classList.remove('hidden');
-  quizSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-});
+function updateMusicButton(isPlaying) {
+  musicButton.setAttribute("aria-pressed", String(isPlaying));
+  musicButton.classList.toggle("is-playing", isPlaying);
+  musicButtonText.textContent = isPlaying ? "Pausar musica" : "Tocar musica";
+}
 
-choiceButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    const isCorrect = button.dataset.correct === 'true';
-
-    if (isCorrect) {
-      if (surpriseUnlocked) return;
-      surpriseUnlocked = true;
-      button.classList.add('right');
-      feedbackBox.textContent = 'AAAAA CÃO QUE ACERTA! Agora vai começar a parte mais bonita ✨';
-      launchConfetti(26);
-      unlockSurprise();
-      return;
+musicButton.addEventListener("click", async () => {
+  if (music.paused) {
+    try {
+      await music.play();
+      updateMusicButton(true);
+    } catch {
+      updateMusicButton(false);
     }
 
-    button.classList.remove('wrong');
-    void button.offsetWidth;
-    button.classList.add('wrong');
-    feedbackBox.textContent = 'Essa passou longe 😌 tenta de novo, tu tá quase lá.';
-  });
-});
-
-function unlockSurprise() {
-  setTimeout(() => {
-    celebrationSection.classList.remove('hidden');
-    messagesSection.classList.remove('hidden');
-    finalSurprise.classList.remove('hidden');
-    loveNote.classList.remove('hidden');
-
-    celebrationSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    revealCardsInSequence();
-    startAmbientEffects();
-  }, 650);
-}
-
-function revealCardsInSequence() {
-  messageCards.forEach((card, index) => {
-    setTimeout(() => {
-      card.classList.add('visible');
-    }, 220 * index);
-  });
-}
-
-revealVideoBtn.addEventListener('click', () => {
-  finalSurprise.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-  birthdayVideo.style.display = 'block';
-
-  const hasReadySource = birthdayVideo.querySelector('source')?.getAttribute('src');
-  if (hasReadySource) {
-    birthdayVideo.load();
+    return;
   }
 
-  birthdayVideo.addEventListener('loadeddata', handleVideoLoaded, { once: true });
-  birthdayVideo.addEventListener('error', handleVideoMissing, { once: true });
-
-  setTimeout(() => {
-    if (birthdayVideo.readyState >= 2) {
-      handleVideoLoaded();
-    }
-  }, 600);
+  music.pause();
+  updateMusicButton(false);
 });
 
-scrollLoveBtn.addEventListener('click', () => {
-  loveNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  startTyping();
-  launchConfetti(18);
-});
+music.addEventListener("ended", () => updateMusicButton(false));
 
-const typingText = 'Você merece um aniversário tão lindo quanto o seu coração.';
+function createElement(tagName, className, textContent) {
+  const element = document.createElement(tagName);
 
-function startTyping() {
-  if (typingStarted) return;
-  typingStarted = true;
-  let index = 0;
-
-  const writer = setInterval(() => {
-    typedMessage.textContent += typingText[index];
-    index += 1;
-
-    if (index >= typingText.length) {
-      clearInterval(writer);
-    }
-  }, 45);
-}
-
-function handleVideoLoaded() {
-  videoPlaceholder.style.display = 'none';
-  birthdayVideo.style.display = 'block';
-  birthdayVideo.play().catch(() => {});
-}
-
-function handleVideoMissing() {
-  birthdayVideo.style.display = 'none';
-  videoPlaceholder.style.display = 'grid';
-  videoPlaceholder.innerHTML = `
-    <div class="video-icon">❤</div>
-    <p>O espaço do vídeo já está pronto. Agora é só colocar <strong>parabens.mp4</strong> na pasta do projeto.</p>
-    <small>Quando o arquivo existir, essa área vai tocar o vídeo automaticamente.</small>
-  `;
-}
-
-function launchConfetti(amount = 16) {
-  const symbols = ['💙', '✨', '🎉', '🎂', '💕'];
-
-  for (let i = 0; i < amount; i += 1) {
-    const piece = document.createElement('span');
-    piece.className = 'floating-heart';
-    piece.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    piece.style.left = `${Math.random() * 100}%`;
-    piece.style.bottom = '-30px';
-    piece.style.animationDuration = `${4 + Math.random() * 3}s`;
-    piece.style.fontSize = `${14 + Math.random() * 20}px`;
-    piece.style.opacity = '0';
-    floatingHearts.appendChild(piece);
-
-    setTimeout(() => piece.remove(), 7000);
+  if (className) {
+    element.className = className;
   }
+
+  if (textContent) {
+    element.textContent = textContent;
+  }
+
+  return element;
 }
 
-function startAmbientEffects() {
-  setInterval(createFloatingHeart, 900);
-  setInterval(createSparkle, 700);
-  startTyping();
+function buildGroupCarousel() {
+  if (!groupCarouselTrack) {
+    return;
+  }
+
+  groupPhotos.forEach((photo, index) => {
+    const slide = createElement("div", "friend-carousel__slide");
+    const image = document.createElement("img");
+
+    image.src = photo;
+    image.alt = `Momento do grupo - foto ${index + 1}`;
+    image.loading = "lazy";
+    slide.append(image);
+    groupCarouselTrack.append(slide);
+  });
 }
 
-function createFloatingHeart() {
-  const icons = ['💙', '🤍', '✨', '💖'];
-  const heart = document.createElement('span');
-  heart.className = 'floating-heart';
-  heart.textContent = icons[Math.floor(Math.random() * icons.length)];
-  heart.style.left = `${Math.random() * 100}%`;
-  heart.style.bottom = '-30px';
-  heart.style.animationDuration = `${5 + Math.random() * 4}s`;
-  heart.style.fontSize = `${12 + Math.random() * 16}px`;
-  floatingHearts.appendChild(heart);
-  setTimeout(() => heart.remove(), 9000);
+function setupCarousel(carousel, index) {
+  const track = carousel.querySelector(".friend-carousel__track");
+  const slides = Array.from(carousel.querySelectorAll(".friend-carousel__slide"));
+  const friendName = carousel.closest(".friend-message")?.querySelector("strong")?.textContent || "grupo";
+  let currentSlide = 0;
+
+  if (!track || slides.length <= 1) {
+    carousel.dataset.carousel = String(index);
+    return;
+  }
+
+  const previousButton = createElement("button", "friend-carousel__button", "<");
+  const nextButton = createElement("button", "friend-carousel__button", ">");
+  const counter = createElement("span", "friend-carousel__counter");
+  const controls = createElement("div", "friend-carousel__controls");
+
+  previousButton.type = "button";
+  previousButton.setAttribute("aria-label", `Foto anterior de ${friendName}`);
+  nextButton.type = "button";
+  nextButton.setAttribute("aria-label", `Proxima foto de ${friendName}`);
+
+  function updateCarousel() {
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+  }
+
+  previousButton.addEventListener("click", () => {
+    currentSlide = currentSlide === 0 ? slides.length - 1 : currentSlide - 1;
+    updateCarousel();
+  });
+
+  nextButton.addEventListener("click", () => {
+    currentSlide = currentSlide === slides.length - 1 ? 0 : currentSlide + 1;
+    updateCarousel();
+  });
+
+  controls.append(previousButton, counter, nextButton);
+  carousel.append(controls);
+  carousel.dataset.carousel = String(index);
+  updateCarousel();
 }
 
-function createSparkle() {
-  const sparkle = document.createElement('span');
-  sparkle.className = 'sparkle';
-  sparkle.style.left = `${Math.random() * 100}%`;
-  sparkle.style.top = `${15 + Math.random() * 85}%`;
-  sparkle.style.animationDuration = `${1.8 + Math.random() * 1.7}s`;
-  sparkles.appendChild(sparkle);
-  setTimeout(() => sparkle.remove(), 3200);
+function openLightbox(image) {
+  lightboxImage.src = image.src;
+  lightboxImage.alt = image.alt;
+  lightbox.classList.add("is-open");
+  lightbox.setAttribute("aria-hidden", "false");
 }
+
+function closeLightbox() {
+  lightbox.classList.remove("is-open");
+  lightbox.setAttribute("aria-hidden", "true");
+  lightboxImage.src = "";
+  lightboxImage.alt = "";
+}
+
+function setupLightbox() {
+  document.querySelectorAll(".friend-carousel__slide img").forEach((image) => {
+    image.tabIndex = 0;
+    image.setAttribute("role", "button");
+
+    image.addEventListener("click", () => openLightbox(image));
+    image.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openLightbox(image);
+      }
+    });
+  });
+
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+      closeLightbox();
+    }
+  });
+}
+
+buildGroupCarousel();
+document.querySelectorAll(".friend-carousel").forEach(setupCarousel);
+setupLightbox();
