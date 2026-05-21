@@ -1,6 +1,18 @@
 const groupPhotos = [
   "imgs/imggrupo1.jpeg",
   "imgs/imggrupo2.jpeg",
+  "imgs/imggrupo3.PNG",
+  "imgs/imggrupo4.PNG",
+  "imgs/imggrupo5.PNG",
+  "imgs/imggrupo6.jpeg",
+  "imgs/imggrupo7.jpeg",
+  "imgs/imggrupo8.jpeg",
+  "imgs/imggrupo9.jpeg",
+  "imgs/imggrupo10.jpeg",
+  "imgs/imggrupo11.jpeg",
+  "imgs/imggrupo12.jpeg",
+  "imgs/imggrupo13.jpeg",
+  "imgs/imggrupo14.jpeg",
 ];
 
 const music = document.querySelector("#birthdayMusic");
